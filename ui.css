@@ -1,0 +1,26 @@
+body {
+  margin: 0;
+  overflow: hidden;
+  background-color: #000;
+  font-family: "Arial", sans-serif;
+}
+
+#score-container {
+  user-select: none;
+  pointer-events: none;
+}
+
+#controls-container {
+  user-select: none;
+  max-width: 300px;
+}
+
+#controls-container h3 {
+  margin: 0 0 10px 0;
+  color: #ffaa00;
+}
+
+#controls-container p {
+  margin: 5px 0;
+  line-height: 1.4;
+}
