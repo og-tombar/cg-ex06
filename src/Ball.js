@@ -50,23 +50,31 @@ export class Ball extends THREE.Group {
     if (this.position.y > 0.41) return;
 
     const moveSpeed = 5;
+    const movement = new THREE.Vector3();
 
-    if (keys["ArrowLeft"]) {
-      this.position.x -= moveSpeed * delta;
-    }
-    if (keys["ArrowRight"]) {
-      this.position.x += moveSpeed * delta;
-    }
-    if (keys["ArrowUp"]) {
-      this.position.z -= moveSpeed * delta;
-    }
-    if (keys["ArrowDown"]) {
-      this.position.z += moveSpeed * delta;
-    }
+    if (keys["ArrowLeft"]) movement.x -= moveSpeed * delta;
+    if (keys["ArrowRight"]) movement.x += moveSpeed * delta;
+    if (keys["ArrowUp"]) movement.z -= moveSpeed * delta;
+    if (keys["ArrowDown"]) movement.z += moveSpeed * delta;
+
+    this.position.add(movement);
 
     const { x: boundsX, z: boundsZ } = this.physics.courtBoundaries;
     this.position.x = THREE.MathUtils.clamp(this.position.x, -boundsX, boundsX);
     this.position.z = THREE.MathUtils.clamp(this.position.z, -boundsZ, boundsZ);
+
+    const distance = movement.length();
+    if (distance > 1e-6) {
+      const radius = 0.3;
+      const axis = new THREE.Vector3()
+        .crossVectors(movement, new THREE.Vector3(0, -1, 0))
+        .normalize();
+
+      if (axis.lengthSq() > 1e-6) {
+        const angle = distance / radius;
+        this.rotateOnWorldAxis(axis, angle);
+      }
+    }
   }
 
   /**
