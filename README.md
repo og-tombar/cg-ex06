@@ -1,20 +1,26 @@
-# Computer Graphics - Exercise 5 - WebGL Basketball Court
-
-## Getting Started
-1. Clone this repository to your local machine
-2. Make sure you have Node.js installed
-3. Start the local web server: `node index.js`
-4. Open your browser and go to http://localhost:8000
-
-## Complete Instructions
-**All detailed instructions, requirements, and specifications can be found in:**
-`basketball_exercise_instructions.html`
+# Computer Graphics - Exercise 6 - WebGL Basketball Game
 
 ## Group Members
-**MANDATORY: Add the full names of all group members here:**
-- [Member 1 Full Name]
-- [Member 2 Full Name]
 
-## Technical Details
-- Run the server with: `node index.js`
-- Access at http://localhost:8000 in your web browser
+- Eric Gantman (207114851)
+- Tom Bar (302278601)
+
+## Getting Started
+
+1. Clone this repository to your local machine: `git clone https://github.com/og-tombar/cg-ex06.git`
+2. Make sure you have Node.js installed
+3. Install dependencies: `npm i`
+4. Start the local web server: `node index.js`
+5. Open your browser and go to http://localhost:8000
+
+## External Assets
+
+- [Procedurally Generated Space Skybox](https://tools.wwwtyro.net/space-3d/index.html)
+
+## Screenshots
+
+Shot ![](./resources/shot.png)
+
+Shot Made ![](./resources/shot_made.png)
+
+Missed Shot ![](./resources/missed_shot.png)
