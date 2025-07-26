@@ -58,23 +58,28 @@ Missed Shot ![](./resources/missed_shot.png)
 ## Physics System Implementation
 
 1. **Gravity & Trajectory**
-   • Constant downward acceleration of **−9.8 m/s^2** is applied every frame once the ball leaves the ground (`src/Physics.js`).
-   • Initial shot velocity is split into vertical and horizontal components (`src/hw6.js -> attemptShot`). Horizontal speed is `shotPower × 6 m/s` and vertical speed is `shotPower × 12 m/s`, producing a realistic parabolic arc whose height is determined by the power set with **W/S**.
+
+   - Constant downward acceleration of **−9.8 m/s^2** is applied every frame once the ball leaves the ground (`src/Physics.js`).
+   - Initial shot velocity is split into vertical and horizontal components (`src/hw6.js -> attemptShot`). Horizontal speed is `shotPower × 6 m/s` and vertical speed is `shotPower × 12 m/s`, producing a realistic parabolic arc whose height is determined by the power set with **W/S**.
 
 2. **Ground & Wall Collisions**
-   • When the ball’s `y` position drops below the 0.4 m resting height it is snapped back to that height and its vertical velocity is inverted and scaled by a **coefficient of restitution 0.8**.
-   • Tangential (x / z) velocity is damped by **10 %** on every bounce to emulate friction, causing the ball to settle after a few rebounds.
-   • Court boundaries at ±14.5 m (x-axis) and ±7 m (z-axis) are enforced; hitting a wall reflects the respective velocity component and applies the same restitution.
+
+   - When the ball’s `y` position drops below the 0.4 m resting height it is snapped back to that height and its vertical velocity is inverted and scaled by a **coefficient of restitution 0.8**.
+   - Tangential (x / z) velocity is damped by **10 %** on every bounce to emulate friction, causing the ball to settle after a few rebounds.
+   - Court boundaries at ±14.5 m (x-axis) and ±7 m (z-axis) are enforced; hitting a wall reflects the respective velocity component and applies the same restitution.
 
 3. **Rim & Backboard Collisions**
-   • A dedicated `checkRimBounce` routine computes radial reflection whenever the ball intersects the rim area (radius 0.55 m, height 4.25 m). Velocity is reflected about the rim’s normal and scaled by the same restitution factor, giving believable rim rattles.
-   • Each `Basket` object provides `checkBackboardCollision`, ensuring that direct hits on the backboard also reflect the ball.
+
+   - A dedicated `checkRimBounce` routine computes radial reflection whenever the ball intersects the rim area (radius 0.55 m, height 4.25 m). Velocity is reflected about the rim’s normal and scaled by the same restitution factor, giving believable rim rattles.
+   - Each `Basket` object provides `checkBackboardCollision`, ensuring that direct hits on the backboard also reflect the ball.
 
 4. **Scoring Detection**
-   • `checkScore` validates a made shot when the ball is descending (`v_y < 0`) and it passes within 0.55 m of the rim. Successful attempts update score, shot counters, and trigger a green "SHOT MADE!" banner; misses show a red message.
+
+   - `checkScore` validates a made shot when the ball is descending (`v_y < 0`) and it passes within 0.55 m of the rim. Successful attempts update score, shot counters, and trigger a green "SHOT MADE!" banner; misses show a red message.
 
 5. **Ball Rotation**
-   • While rolling or flying, the ball spins around the axis `v × (0,1,0)` so that the rotation always matches the direction of travel. The angle increment each frame is `(speed / radius) * delta_time`, giving visually correct rolling/slipping behaviour.
+
+   - While rolling or flying, the ball spins around the axis `v × (0,1,0)` so that the rotation always matches the direction of travel. The angle increment each frame is `(speed / radius) * delta_time`, giving visually correct rolling/slipping behaviour.
 
 6. **Time Based Integration**
-   • All physics use the real-time delta returned by `THREE.Clock` ensuring frame-rate-independent simulation at 60 FPS or higher.
+   - All physics use the real-time delta returned by `THREE.Clock` ensuring frame-rate-independent simulation at 60 FPS or higher.
